@@ -1,0 +1,15 @@
+.inline {
+  display: inline-block;
+  margin-right: 10px;
+  border: solid 1px black;
+}
+mat-card {
+  margin: 30px;
+  width: 100%;
+}
+.mat-icon {
+  float: right;
+}
+.inline > button {
+  float: right;
+}

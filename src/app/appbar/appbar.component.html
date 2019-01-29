@@ -1,0 +1,49 @@
+<mat-toolbar  class="toolbar" color="primary">
+  <button
+    mat-icon-button
+    (click)="snav.toggle()"
+    [hidden]="!mobileQuery.matches"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 class="app-name">TO DO LIST</h1>
+  
+</mat-toolbar>
+
+<mat-sidenav-container
+  class="sidenav-container"
+  [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+>
+  <mat-sidenav
+    class="mat-sidenav"
+    #snav
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [(opened)]="!mobileQuery.matches"
+    [fixedInViewport]="mobileQuery.matches"
+    fixedTopGap="65"
+  >
+    <mat-nav-list>
+      <app-newlist class="newlist" mat-list-item></app-newlist>
+      <mat-list-item>
+        <a (click)="displayCompletedTasks()" [routerLink]="['/completed']">
+          Completed Tasks
+        </a> 
+      </mat-list-item>
+      <mat-list-item class="list-item" *ngFor="let list of alllists" class="list">
+        <a (click)="selectList(list)" [routerLink]="['/tasklist', list._id]">
+          {{ list.title }}
+        </a>
+
+       
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="content">
+      
+          <h3 class="list-name"> {{header}}</h3>
+
+          <button class="deletebutton" (click)="deleteList()" mat-button>Delete List</button>
+      
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,40 @@
+
+  <mat-expansion-panel >
+    <mat-expansion-panel-header>
+      <mat-panel-title> <mat-icon>add</mat-icon> </mat-panel-title>
+      <mat-panel-description> Add new Task </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="title"
+          name="title"
+          [formControl]="title"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          name="date"
+          type="date"
+          [formControl]="date"
+          placeholder="Choose a date"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          placeholder="Description"
+          name="des"
+          [formControl]="description"
+        ></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-raised-button type="submit" color="primary">Add</button>
+      </div>
+    </form>
+  </mat-expansion-panel>
+
