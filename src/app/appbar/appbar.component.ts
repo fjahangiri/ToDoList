@@ -21,7 +21,7 @@ export class AppbarComponent implements OnInit {
   private _mobileQueryListener: () => void;
   alllists: List[];
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private listservice: ListService
+    private listservice: ListService , private router: Router
     ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -32,7 +32,6 @@ export class AppbarComponent implements OnInit {
   }
   ngOnInit() {
     this.getList();
-
   }
   getList(): void {
     this.listservice.getAllLists().subscribe(itemss => this.alllists = itemss);
@@ -46,6 +45,9 @@ export class AppbarComponent implements OnInit {
   deleteList() {
     this.alllists.splice(this.alllists.indexOf(this.currentList), 1);
     this.listservice.deleteList(this.currentList).subscribe();
+    this.router.navigate(['./dailyTasks']);
+    this.header = 'Daily Tasks';
+
   }
   displayCompletedTasks() {
     this.header = 'Completed Tasks';

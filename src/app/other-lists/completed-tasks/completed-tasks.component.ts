@@ -9,10 +9,11 @@ import { Task } from 'src/app/class/task';
 })
 export class CompletedTasksComponent implements OnInit {
   tasks: Task[];
-  constructor(private taskservice: TaskService) { }
+  constructor(private taskservice: TaskService) {}
 
   ngOnInit() {
-    this.taskservice.getCompeletedTasks().subscribe(items => this.tasks = items);
+    this.taskservice
+      .getCompeletedTasks()
+      .subscribe(items => (this.tasks = items));
   }
-
 }

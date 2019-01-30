@@ -4,6 +4,7 @@ import { TaskService } from 'src/app/service/task.service';
 import { ListService } from 'src/app/service/list.service';
 import { FormControl, Validators } from '@angular/forms';
 import { List } from 'src/app/class/list';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-task-item',
@@ -21,24 +22,26 @@ export class TaskItemComponent implements OnInit {
   task: Task;
   constructor(
     private taskservice: TaskService,
-    private listservice: ListService
+    private listservice: ListService,
+    private snackbar: MatSnackBar
   ) {}
   title = new FormControl('');
   description = new FormControl('');
   date = new FormControl('');
   ngOnInit() {}
   movetask() {
-    let x: List;
-    this.listservice.getMainList().subscribe(list => x = list);
-    const t = this.task;
-    t.list = x;
-    this.taskservice.updateTask(t).subscribe();
+    this.listservice.getMainList().subscribe(list => {
+      const t = this.task;
+      t.list = list;
+      this.taskservice.updateTask(t).subscribe(response =>
+        this.taskservice.deletefromList(this.task));
+    });
   }
   taskdone() {
-    const t = this.task;
-    t.done = true;
-    this.disabled = true;
-    this.taskservice.updateTask(t).subscribe();
+    this.task.done = true;
+    this.taskservice.updateTask(this.task).subscribe(response => {
+      this.taskservice.deletefromList(this.task);
+    });
   }
   editTitle() {
     this.edit_title = true;
@@ -75,14 +78,18 @@ export class TaskItemComponent implements OnInit {
     this.edit_title = false;
   }
   deleteTask() {
-    this.taskservice.deleteTask(this.task).subscribe(response =>
-        this.taskservice.deletefromList(this.task)
-    );
+    this.taskservice
+      .deleteTask(this.task)
+      .subscribe(response => this.taskservice.deletefromList(this.task));
   }
   cancleEdit() {
     this.edit_date = false;
     this.edit_des = false;
     this.edit_title = false;
     this.displaymode = true;
+  }
+  openSnackBar() {
+    this.snackbar.open(this.task.description , '', {duration: 4000} ,
+     );
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ListService} from '../../service/list.service';
+import { ListService } from '../../service/list.service';
 import { List } from '../../class/list';
 import { FormControl, Validators } from '@angular/forms';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface DialogData {
   name: string;
@@ -14,12 +14,11 @@ export interface DialogData {
   styleUrls: ['./newlist.component.scss']
 })
 export class NewlistComponent implements OnInit {
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
   // name: string;
-   name = new FormControl('', [Validators.required]);
+  name = new FormControl('', [Validators.required]);
   // l: List;
-  ngOnInit() {
-  }
+  ngOnInit() {}
   openNewlist(): void {
     const dialogRef = this.dialog.open(NewlistDialogComponent, {
       width: '700px',
@@ -50,9 +49,8 @@ export class NewlistDialogComponent implements OnInit {
 
   OkClick(name: string): void {
     this.l = new List(name);
-    this.listservice.addlist( this.l ).subscribe(response =>
-      this.listservice.addlisttoAppbar(this.l)
-    );
+    this.listservice
+      .addlist(this.l)
+      .subscribe(response => this.listservice.addlisttoAppbar(this.l));
   }
 }
-

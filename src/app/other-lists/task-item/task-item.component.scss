@@ -1,15 +1,31 @@
 .inline {
   display: inline-block;
   margin-right: 10px;
-  border: solid 1px black;
+}
+.inline-date {
+  display: inline-block;
+  margin-left: 16px;
+  font-size: 10px;
 }
 mat-card {
-  margin: 30px;
-  width: 100%;
+  margin-left: 50px;
+  margin-right: 50px; 
+  width: 480px;
 }
 .mat-icon {
+  display: block;
   float: right;
+  margin-left: 15px;
 }
-.inline > button {
-  float: right;
+
+form {
+  background-color: 1px whitesmoke solid;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.05);
+  margin-left: 50px;
+  margin-right: 50px; 
+  width: 500px;
+  padding-left: 10px;
+}
+button {
+  margin-left:20px;
 }

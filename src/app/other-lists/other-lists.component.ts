@@ -16,7 +16,7 @@ export class OtherListsComponent implements OnInit {
   // task: Task[];
   currentList: List;
   allLists: List[];
-  // temp$: Observable<any>;
+ tasks$: Observable<Task[]>;
   constructor(
     private taskservice: TaskService,
     private route: ActivatedRoute,
@@ -28,36 +28,14 @@ export class OtherListsComponent implements OnInit {
     taskservice.addtoList$.subscribe(item =>
       this.tasks.push(item)
     );
-
-    //    this.listservice.CurrentList$.subscribe(list => this.currentList =  list);
-  }
+ }
 
   ngOnInit() {
-    /* this.listservice.getAllLists().subscribe(itemss => {
-      this.allLists = itemss;
-      this.route.paramMap.pipe(
-        switchMap((params: ParamMap) => {
-        return this.taskservice.getTasksOfList(this.allLists.find(list => list.title === params.get('title'))) ; }
-      )).subscribe(tasks => this.task = tasks);
-    });*/
-    // this.taskservice.getAllTasks().subscribe(task => this.tasks = task);
-    this.route.paramMap.pipe(
+    this.tasks$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) => {
         return this.taskservice.getTasksOfList(params.get('_id'));
       })
-    ).subscribe(items => this.tasks = items);
-    // .subscribe(task => {console.log('hellllllllo'); this.tasks = task; const c =  this.tasks[0]; console.log(c.title); } );
-    //     this.route.paramMap.pipe(
-    // switchMap((params: ParamMap) =>
-    //  this.List = this.listservice.findList(params.get('title')));
-    // );
-
-    //    this.temp$ = this.route.paramMap.pipe(
-    //    switchMap(params => {
-    //    this.currentList = this.listservice.findList(params.get('title'));
-    //  return new Observable();
-    //    })
-    //  );
-    //  this.taskservice.getTasksOfList(this.currentList).subscribe(tasks => this.tasks = tasks);
+    );
+    this.tasks$.subscribe(items => this.tasks = items);
   }
 }

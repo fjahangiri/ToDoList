@@ -19,9 +19,9 @@ export class NewtaskComponent implements OnInit {
     private taskservice: TaskService,
     private listservice: ListService
   ) {
-    if (this.isMain === false) {
-      listservice.CurrentList$.subscribe(list => (this.currentList = list));
-    }
+   // if (this.isMain === false) {
+      listservice.CurrentList$.subscribe(list => {this.currentList = list; console.log(list); } );
+  //  }
   }
   panelOpenState = false;
   title = new FormControl('');

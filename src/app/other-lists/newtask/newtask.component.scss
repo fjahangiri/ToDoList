@@ -1,3 +1,19 @@
-.accordin {
-    width: 300px;
+.expansion {
+    margin-left: 65px;
+    margin-right: 65px; 
+    width: 510px;  
+}
+mat-form-field {
+    margin-right:40px;
+    margin-left:40px
+}
+form {
+    border: 1px solid whitesmoke;
+}
+button {
+    display: block;
+    float: right;
+    margin-right: 15px;
+    margin-top: 10px;
+    width: 100px;
 }

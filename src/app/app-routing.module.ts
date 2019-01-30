@@ -5,16 +5,16 @@ import { OtherListsComponent } from './other-lists/other-lists.component';
 import { CompletedTasksComponent } from './other-lists/completed-tasks/completed-tasks.component';
 const routes: Routes = [
   {
+    path: 'completed',
+    component: CompletedTasksComponent
+  },
+  {
     path: 'tasklist/:_id',
     component: OtherListsComponent
   },
   {
     path: '**',
     component: MainListComponent
-  },
-  {
-    path: 'completed',
-    component: CompletedTasksComponent
   }
 ];
 
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

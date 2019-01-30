@@ -17,8 +17,7 @@ export class TaskService {
     return this.http.get<Task[]>(`http://localhost:3000/api/tasks`);
   }
   addTask(task: Task): Observable<{}> {
-    console.log(task.title);
-    console.log(task.date);
+    console.log(task.list.title);
     return this.http.post<Task>(`http://localhost:3000/api/tasks`, task);
   }
   getTasksOfList(list: string): Observable<Task[]> {
@@ -28,6 +27,7 @@ export class TaskService {
     return this.http.get<Task>(`http://localhost:3000/api/tasks/${task._id}`);
   }
   updateTask(task: Task): Observable<{}> {
+    console.log(task._id);
     return this.http.put<Task>(`http://localhost:3000/api/tasks/${task._id}`, task);
   }
   deleteTask(task: Task): Observable<{}> {

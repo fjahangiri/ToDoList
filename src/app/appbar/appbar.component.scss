@@ -3,7 +3,7 @@
 }
 .mat-sidenav {
   width: 250px;
-  background-color: gainsboro;
+  background-color: rgb(221, 211, 240);
 
 }
 
@@ -25,19 +25,20 @@
   flex-grow : 1;
 }
 .toolbar {
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.2);
   z-index:2;
 }
-.delete {
+.deletebutton {
   display: block;
   float: right;
-  margin-left: 50px;
+  margin-right: 20px;
+  margin-top: 10px;
+} 
+.subheader {
+  padding-bottom: 10px;
 }
-.list-name {
-  align-self: center;
-}
-.deletebutton {
+.name {
   display: inline-block;
-  float: right;
-  margin-right: 30px;
+  margin-left: 10px;
+  margin-top:10 px;
 }
