@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from 'src/app/service/task.service';
 import { Task } from 'src/app/class/task';
+import { List } from 'src/app/class/list';
 
 @Component({
   selector: 'app-completed-tasks',
@@ -9,11 +10,17 @@ import { Task } from 'src/app/class/task';
 })
 export class CompletedTasksComponent implements OnInit {
   tasks: Task[];
-  constructor(private taskservice: TaskService) {}
+  currentList: List;
+  constructor(private taskservice: TaskService) {
+    taskservice.deleteTask$.subscribe(item => {
+      this.tasks.splice(this.tasks.indexOf(item), 1);
+    });
+  }
 
   ngOnInit() {
     this.taskservice
       .getCompeletedTasks()
       .subscribe(items => (this.tasks = items));
+    this.currentList = new List('Completed Tasks');
   }
 }

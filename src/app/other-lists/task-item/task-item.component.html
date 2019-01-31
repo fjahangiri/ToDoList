@@ -1,5 +1,5 @@
 <mat-card class="displayMode" *ngIf="displaymode">
-  <mat-checkbox (click)="taskdone()" class="inline" [(ngModel)]="done" ></mat-checkbox>
+  <mat-checkbox  (click)="taskdone()" class="inline" [(ngModel)]="done" ></mat-checkbox>
   <div (dblclick)="editTitle()" class="inline"  matTooltip="double click for edit">{{task.title}}</div>
   <div (dblclick)="editDate()" class="inline-date">{{ task.date| date:' MMMM d, y'}}</div>
   <mat-icon (click)="deleteTask()" class="inline" >delete_outline</mat-icon>

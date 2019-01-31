@@ -5,7 +5,7 @@ import { Task } from '../../class/task';
 import { TaskService } from '../../service/task.service';
 import { ActivatedRoute } from '@angular/router';
 import { ListService } from '../../service/list.service';
-import {map, switchMap} from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 @Component({
   selector: 'app-main-list',
   templateUrl: './main-list.component.html',
@@ -16,19 +16,24 @@ export class MainListComponent implements OnInit {
   allLists: List[];
   tasks: Task[];
 
-  constructor(private taskservice: TaskService,
-     private route: ActivatedRoute, private listservice: ListService) {
-      taskservice.deleteTask$.subscribe(item => {
-        this.tasks.splice(this.tasks.indexOf(item), 1);
-      });
-      taskservice.addtoList$.subscribe(item =>
-        this.tasks.push(item)
-      );
-    }
-  ngOnInit() {
-    this.listservice.getMainList().subscribe(mainlist =>
-      this.taskservice.getTasksOfList(mainlist._id).subscribe(tasks => this.tasks = tasks));
-    this.listservice.getMainList().subscribe(list => this.currentList = list);
+  constructor(
+    private taskservice: TaskService,
+    private route: ActivatedRoute,
+    private listservice: ListService
+  ) {
+    taskservice.deleteTask$.subscribe(item => {
+      this.tasks.splice(this.tasks.indexOf(item), 1);
+    });
+    taskservice.addtoList$.subscribe(item => this.tasks.push(item));
   }
-
+  ngOnInit() {
+    this.listservice.getMainList().subscribe(mainlist => {
+      this.currentList = mainlist;
+      this.taskservice
+        .getTasksOfList(mainlist._id)
+        .subscribe(
+          items => (this.tasks = items.filter(item => item.done === false))
+        );
+    });
+  }
 }

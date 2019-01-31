@@ -29,6 +29,9 @@ export class AppbarComponent implements OnInit {
     listservice.AddList$.subscribe(item => {
       this.alllists.push(item);
     });
+    listservice.deleteCurrentList$.subscribe(item => {
+      this.alllists.splice(this.alllists.indexOf(item), 1);
+    });
   }
   ngOnInit() {
     this.getList();
@@ -39,14 +42,6 @@ export class AppbarComponent implements OnInit {
   selectList(list: List) {
     this.header = list.title;
     this.currentList = list;
-    this.listservice.setCurrentList(list);
-
-  }
-  deleteList() {
-    this.alllists.splice(this.alllists.indexOf(this.currentList), 1);
-    this.listservice.deleteList(this.currentList).subscribe();
-    this.router.navigate(['./dailyTasks']);
-    this.header = 'Daily Tasks';
 
   }
   displayCompletedTasks() {

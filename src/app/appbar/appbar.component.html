@@ -1,19 +1,17 @@
 <div class="toolbar">
-    <mat-toolbar   color="primary">
-        <button
-          mat-icon-button
-          (click)="snav.toggle()"
-          [hidden]="!mobileQuery.matches"
-        >
-          <mat-icon>menu</mat-icon>
-        </button>
-        <h1 class="app-name">TO DO LIST</h1>
-        
-      </mat-toolbar>
-      
+  <mat-toolbar color="primary">
+    <button
+      mat-icon-button
+      (click)="snav.toggle()"
+      [hidden]="!mobileQuery.matches"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 class="app-name">TO DO LIST</h1>
+  </mat-toolbar>
 </div>
 
-<mat-sidenav-container 
+<mat-sidenav-container
   class="sidenav-container"
   [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
 >
@@ -27,27 +25,24 @@
   >
     <mat-nav-list>
       <app-newlist class="newlist" mat-list-item></app-newlist>
-      <mat-list-item>
-        <a (click)="displayCompletedTasks()" [routerLink]="['/completed']">
+      <mat-list-item (click)="displayCompletedTasks()" [routerLink]="['/completed']">
+        <a  >
           Completed Tasks
-        </a> 
-      </mat-list-item>
-      <mat-list-item class="list-item" *ngFor="let list of alllists" class="list">
-        <a (click)="selectList(list)" [routerLink]="['/tasklist', list._id]">
-          {{ list.title }}
         </a>
-
-       
+      </mat-list-item>
+      <mat-list-item
+        (click)="selectList(list)"
+        class="list-item"
+        *ngFor="let list of alllists"
+        class="list"
+        [routerLink]="['/tasklist', list._id]"
+      >
+        <a> {{ list.title }} </a>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="content">
-      <div class="subheader">
-          <h3 class="name"> {{header}}</h3>
 
-          <button *ngIf="header!=='Daily Tasks'" class="deletebutton" (click)="deleteList()" mat-button>Delete Current List</button>
-      </div>
-        
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

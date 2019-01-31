@@ -6,38 +6,34 @@ import { List } from '../../class/list';
 import { ListService } from '../../service/list.service';
 import { Listener } from 'selenium-webdriver';
 import { Observable } from 'rxjs';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-newtask',
   templateUrl: './newtask.component.html',
   styleUrls: ['./newtask.component.scss']
 })
 export class NewtaskComponent implements OnInit {
-  currentList: List;
   @Input()
-  isMain: Boolean;
+  currentList: List;
   constructor(
     private taskservice: TaskService,
-    private listservice: ListService
+    private listservice: ListService,
+    private router: ActivatedRoute
   ) {
    // if (this.isMain === false) {
-      listservice.CurrentList$.subscribe(list => {this.currentList = list; console.log(list); } );
+  //    listservice.CurrentList$.subscribe(list => {this.currentList = list; console.log(list); } );
   //  }
   }
   panelOpenState = false;
+  opened = false;
   title = new FormControl('');
   date = new FormControl('');
   description = new FormControl('');
   ngOnInit() {
-    if (this.isMain === true) {
-      this.listservice
-        .getMainList()
-        .subscribe(list => (this.currentList = list));
-    }
   }
   onSubmit() {
-  //  if (!this.title.invalid) {
-      //  this.listservice.CurrentList$.subscribe(list => {
-      // console.log(this.title.value);
       const t = new Task(
         this.title.value,
         this.description.value,
@@ -47,7 +43,5 @@ export class NewtaskComponent implements OnInit {
       this.taskservice.addTask(t).subscribe(response => {
         this.taskservice.addtolist(t);
       });
-      // });
     }
- // }
 }
