@@ -15,6 +15,8 @@ export class ListService {
   deleteCurrentList$ = this.deleteCurrentListSource.asObservable();
   private AddListSource = new Subject<List>();
   AddList$ = this.AddListSource.asObservable();
+  private updateAppbarSource = new Subject<List>();
+  updateAppbar$ = this.updateAppbarSource.asObservable();
   constructor(private http: HttpClient) { }
   AllLists: List[];
   getAllLists(): Observable<List[]> {
@@ -27,7 +29,7 @@ export class ListService {
      );
   }
 
-  updateList(l: List): Observable<{}> {
+  updateList(l: List): Observable<List> {
     return this.http.put<List> (`http://localhost:3000/api/lists/${l._id}`, l);
   }
   deleteList(l: List): Observable<{}> {
@@ -47,6 +49,9 @@ export class ListService {
   }
   addlisttoAppbar(list: List) {
     this.AddListSource.next(list);
+  }
+  updatelistInAppbar(list: List) {
+    this.updateAppbarSource.next(list);
   }
 
 }

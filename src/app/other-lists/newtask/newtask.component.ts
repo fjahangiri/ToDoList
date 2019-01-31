@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { TaskService } from '../../service/task.service';
 import { Task } from '../../class/task';
@@ -17,17 +17,14 @@ import { switchMap } from 'rxjs/operators';
 export class NewtaskComponent implements OnInit {
   @Input()
   currentList: List;
+  @ViewChild('mypanel') mypanel;
   constructor(
     private taskservice: TaskService,
     private listservice: ListService,
     private router: ActivatedRoute
   ) {
-   // if (this.isMain === false) {
-  //    listservice.CurrentList$.subscribe(list => {this.currentList = list; console.log(list); } );
-  //  }
   }
   panelOpenState = false;
-  opened = false;
   title = new FormControl('');
   date = new FormControl('');
   description = new FormControl('');
@@ -43,5 +40,9 @@ export class NewtaskComponent implements OnInit {
       this.taskservice.addTask(t).subscribe(response => {
         this.taskservice.addtolist(response);
       });
+      this.title.reset();
+      this.date.reset();
+      this.description.reset();
+      this.mypanel.close();
     }
 }

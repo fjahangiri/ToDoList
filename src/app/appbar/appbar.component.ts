@@ -16,8 +16,6 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 export class AppbarComponent implements OnInit {
   panelOpenState = false;
   mobileQuery: MediaQueryList;
-//  header = 'Daily Tasks';
-  // currentList: List;
   private _mobileQueryListener: () => void;
   alllists: List[];
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
@@ -32,6 +30,9 @@ export class AppbarComponent implements OnInit {
     listservice.deleteCurrentList$.subscribe(item => {
       this.alllists.splice(this.alllists.indexOf(item), 1);
     });
+    listservice.updateAppbar$.subscribe(item => {
+      this.alllists[this.alllists.findIndex(olditem => item._id === olditem._id)] = item;
+    } );
   }
   ngOnInit() {
     this.getList();
@@ -39,12 +40,4 @@ export class AppbarComponent implements OnInit {
   getList(): void {
     this.listservice.getAllLists().subscribe(itemss => this.alllists = itemss);
   }
-/*  selectList(list: List) {
-    this.header = list.title;
-    this.currentList = list;
-
-  }
-  displayCompletedTasks() {
-    this.header = 'Completed Tasks';
-  }*/
 }

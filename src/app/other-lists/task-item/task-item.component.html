@@ -8,11 +8,11 @@
     ></mat-checkbox>
     <div class="inline">{{ task.title }}</div>
     <div class="inline-date">{{ task.date | date: " MMMM d, y" }}</div>
-    <mat-icon *ngIf="itemtype !== 3" (click)="edit()" class="inline"
+    <mat-icon matTooltip="Edit" *ngIf="itemtype !== 3" (click)="edit()" class="inline"
       >edit</mat-icon
     >
-    <mat-icon (click)="deleteTask()" class="inline">delete_outline</mat-icon>
-    <mat-icon (click)="openSnackBar()"> description</mat-icon>
+    <mat-icon matTooltip="delete" (click)="deleteTask()" class="inline">delete_outline</mat-icon>
+    <mat-icon matTooltip="description" (click)="openSnackBar()"> description</mat-icon>
     <mat-icon
       *ngIf="itemtype !== 2 && itemtype !== 3"
       (click)="movetask()"
