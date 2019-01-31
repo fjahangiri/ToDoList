@@ -41,7 +41,7 @@ export class NewtaskComponent implements OnInit {
         this.currentList
       );
       this.taskservice.addTask(t).subscribe(response => {
-        this.taskservice.addtolist(t);
+        this.taskservice.addtolist(response);
       });
     }
 }

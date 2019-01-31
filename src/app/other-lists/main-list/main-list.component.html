@@ -1,10 +1,11 @@
 <div class="subheader">
   <h3 class="name">{{ currentList.title }}</h3>
 </div>
-<app-newtask [currentList]="currentList" *ngIf="currentList"></app-newtask>
+<div class="new-task">
+    <app-newtask [currentList]="currentList" *ngIf="currentList"></app-newtask>
 
-<mat-nav-list>
-  <mat-list-item *ngFor="let task of tasks">
-    <app-task-item [task]="task"> </app-task-item>
-  </mat-list-item>
-</mat-nav-list>
+</div>
+
+    <div class="task-item" *ngFor='let task of tasks '>
+        <app-task-item [itemtype]=2 [task]="task"> </app-task-item>
+    </div>

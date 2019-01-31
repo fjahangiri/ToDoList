@@ -10,9 +10,13 @@
     Delete Current List
   </button>
 </div>
-<app-newtask [currentList]="currentList" *ngIf="currentList"></app-newtask>
-<mat-nav-list>
-  <mat-list-item *ngFor='let task of tasks '>
-    <app-task-item [task]="task"> </app-task-item>
-  </mat-list-item>
-</mat-nav-list>
+<div class="new-task">
+    <app-newtask [currentList]="currentList" *ngIf="currentList"></app-newtask>
+
+</div>
+
+    <div class="task-item" *ngFor='let task of tasks '>
+        <app-task-item [itemtype]=1 [task]="task"> </app-task-item>
+    </div>
+    
+

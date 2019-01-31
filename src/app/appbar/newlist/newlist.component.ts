@@ -51,6 +51,6 @@ export class NewlistDialogComponent implements OnInit {
     this.l = new List(name);
     this.listservice
       .addlist(this.l)
-      .subscribe(response => this.listservice.addlisttoAppbar(this.l));
+      .subscribe(response => this.listservice.addlisttoAppbar(response));
   }
 }

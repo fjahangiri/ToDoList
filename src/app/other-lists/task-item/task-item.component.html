@@ -1,35 +1,62 @@
 <mat-card class="displayMode" *ngIf="displaymode">
-  <mat-checkbox  (click)="taskdone()" class="inline" [(ngModel)]="done" ></mat-checkbox>
-  <div (dblclick)="editTitle()" class="inline"  matTooltip="double click for edit">{{task.title}}</div>
-  <div (dblclick)="editDate()" class="inline-date">{{ task.date| date:' MMMM d, y'}}</div>
-  <mat-icon (click)="deleteTask()" class="inline" >delete_outline</mat-icon>
-  <mat-icon (dblclick)="editDes()"  (click)="openSnackBar()" >  description</mat-icon>
-  <mat-icon (click)="movetask()" class="inline-button" matTooltip="move to Daily Tasks">move_to_inbox</mat-icon>
+  <mat-card-content>
+    <mat-checkbox
+      *ngIf="itemtype !== 3"
+      (click)="taskdone()"
+      class="inline"
+      [(ngModel)]="done"
+    ></mat-checkbox>
+    <div class="inline">{{ task.title }}</div>
+    <div class="inline-date">{{ task.date | date: " MMMM d, y" }}</div>
+    <mat-icon *ngIf="itemtype !== 3" (click)="edit()" class="inline"
+      >edit</mat-icon
+    >
+    <mat-icon (click)="deleteTask()" class="inline">delete_outline</mat-icon>
+    <mat-icon (click)="openSnackBar()"> description</mat-icon>
+    <mat-icon
+      *ngIf="itemtype !== 2 && itemtype !== 3"
+      (click)="movetask()"
+      class="inline-button"
+      matTooltip="move to Daily Tasks"
+      >move_to_inbox</mat-icon
+    >
+  </mat-card-content>
 </mat-card>
-<div class="editMode" *ngIf="!displaymode">
-  <form (ngSubmit)="onSubmittitle()" class="edit-title" *ngIf="edit_title">
-      <mat-form-field *ngIf="edit_title">
-          <input *ngIf="edit_title" placeholder="Enter New Title" matInput name="title" [formControl]="title">
-  
-      </mat-form-field>  
-      <button mat-button color="primary" type="submit" >save</button>  
-      <button mat-button (click)="cancleEdit()">cancel</button>
-  </form>
-  <form (ngSubmit)="onSubmitdate()" class="edit-date" *ngIf="edit_date">
-      <mat-form-field *ngIf="edit_date">
-          <input *ngIf="edit_date" placeholder="Enter New Date" matInput name="date" [formControl]="date">
-  
+
+<mat-card class="editMode" *ngIf="!displaymode && task">
+  <mat-card-header>
+    Edit Task
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input
+          placeholder="Enter New Title"
+          matInput
+          name="title"
+          [formControl]="title"
+        />
       </mat-form-field>
-      <button mat-button  color="primary" *ngIf="edit_date" type="submit" >save</button>  
-      <button mat-button *ngIf="edit_date" (click)="cancleEdit()">cancel</button>
-  </form>
-  <form (ngSubmit)="onSubmitdes()" class="edit-description" *ngIf="edit_des">
-      <mat-form-field *ngIf="edit_des">
-          <textarea *ngIf="edit_des" matInput name="title" placeholder="Enter new Description" [formControl]="description"></textarea>
-  
-      </mat-form-field>    
-      <button mat-button *ngIf="edit_des" color="primary" type="submit" >save</button>  
-      <button mat-button *ngIf="edit_des" (click)="cancleEdit()">cancel</button>
-  </form>
+      <mat-form-field>
+        <input
+          placeholder="Enter New Date"
+          matInput
+          type="date"
+          name="date"
+          [formControl]="date"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <textarea
+          matInput
+          name="title"
+          placeholder="Enter new Description"
+          [formControl]="description"
+        ></textarea>
+      </mat-form-field>
+      <button mat-raised-button (click)="cancleEdit()">cancel</button>
+      <button mat-raised-button color="primary" type="submit">save</button>
     
-</div>
+    </form>
+  </mat-card-content>
+</mat-card>

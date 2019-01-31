@@ -1,23 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
 import { Task } from 'src/app/class/task';
 import { TaskService } from 'src/app/service/task.service';
 import { ListService } from 'src/app/service/list.service';
 import { FormControl, Validators } from '@angular/forms';
 import { List } from 'src/app/class/list';
 import { MatSnackBar } from '@angular/material';
+import { NgOnChangesFeature } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-task-item',
   templateUrl: './task-item.component.html',
   styleUrls: ['./task-item.component.scss']
 })
-export class TaskItemComponent implements OnInit {
+export class TaskItemComponent implements OnChanges {
   done = false;
   displaymode = true;
-  edit_date = false;
-  edit_des = false;
-  edit_title = false;
-  disabled = false;
+  @Input()
+  itemtype: number;
+
   @Input()
   task: Task;
   constructor(
@@ -25,10 +25,14 @@ export class TaskItemComponent implements OnInit {
     private listservice: ListService,
     private snackbar: MatSnackBar
   ) {}
-  title = new FormControl('');
-  description = new FormControl('');
-  date = new FormControl('');
-  ngOnInit() {}
+  title: FormControl;
+  description: FormControl;
+  date: FormControl;
+  ngOnChanges(changes: SimpleChanges) {
+    this.title = new FormControl(this.task.title);
+    this.description = new FormControl(this.task.description);
+    this.date = new FormControl(this.task.date);
+  }
   movetask() {
     this.listservice.getMainList().subscribe(list => {
       const t = this.task;
@@ -43,49 +47,23 @@ export class TaskItemComponent implements OnInit {
       this.taskservice.deletefromList(this.task);
     });
   }
-  editTitle() {
-    this.edit_title = true;
+  edit() {
     this.displaymode = false;
   }
-  editDate() {
-    this.edit_date = true;
-    this.displaymode = false;
-  }
-  editDes() {
-    this.edit_des = true;
-    this.displaymode = false;
-  }
-  onSubmittitle() {
-    const t = this.task;
-    t.title = this.title.value;
-    this.taskservice.updateTask(t).subscribe();
-    this.displaymode = true;
-    this.edit_title = false;
-  }
-
-  onSubmitdate() {
-    const t = this.task;
-    t.date = this.date.value;
-    this.taskservice.updateTask(t).subscribe();
-    this.displaymode = true;
-    this.edit_date = false;
-  }
-  onSubmitdes() {
-    const t = this.task;
-    t.description = this.description.value;
-    this.taskservice.updateTask(t).subscribe();
-    this.displaymode = true;
-    this.edit_title = false;
-  }
+ onSubmit() {
+  const t = this.task;
+  t.title = this.title.value;
+  t.date = this.date.value;
+  t.description = this.description.value;
+  this.taskservice.updateTask(t).subscribe();
+  this.displaymode = true;
+ }
   deleteTask() {
     this.taskservice
       .deleteTask(this.task)
       .subscribe(response => this.taskservice.deletefromList(this.task));
   }
   cancleEdit() {
-    this.edit_date = false;
-    this.edit_des = false;
-    this.edit_title = false;
     this.displaymode = true;
   }
   openSnackBar() {

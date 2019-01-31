@@ -1,7 +1,19 @@
 mat-list-item {
-  margin-top: 25px;
+  display: block;
+  margin: 25px;
+}
+.task-item {
+  display: block;
+  margin: 20px;
+  margin-left: 50px;
+  margin-right: 50px; 
 }
 
+.new-task {
+  
+  margin-left: 50px;
+  margin-right: 50px;
+}
 .deletebutton {
   display: block;
   float: right;

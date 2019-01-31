@@ -25,15 +25,20 @@
   >
     <mat-nav-list>
       <app-newlist class="newlist" mat-list-item></app-newlist>
-      <mat-list-item (click)="displayCompletedTasks()" [routerLink]="['/completed']">
+      <mat-list-item  [routerLink]="['/completed']">
         <a  >
           Completed Tasks
         </a>
       </mat-list-item>
+      <mat-list-item  [routerLink]="['/mainlist']">
+        <a  >
+          Daily Tasks
+        </a>
+      </mat-list-item>
+
       <mat-list-item
-        (click)="selectList(list)"
         class="list-item"
-        *ngFor="let list of alllists"
+        *ngFor="let list of alllists | slice:1"
         class="list"
         [routerLink]="['/tasklist', list._id]"
       >
@@ -42,7 +47,6 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content class="content">
-
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -36,7 +36,7 @@ export class ListService {
   getList(id: string): Observable<List> {
     return this.http.get<List>(`http://localhost:3000/api/lists/${id}`);
   }
-  addlist(l: List): Observable<{}> {
+  addlist(l: List): Observable<List> {
     return this.http.post<List> (`http://localhost:3000/api/lists`, l);
   }
   getMainList(): Observable<List> {
