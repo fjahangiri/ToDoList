@@ -15,13 +15,12 @@ export interface DialogData {
 })
 export class NewlistComponent implements OnInit {
   constructor(private dialog: MatDialog) {}
-  // name: string;
-  name = new FormControl('', [Validators.required]);
+  name: string;
   // l: List;
   ngOnInit() {}
   openNewlist(): void {
     const dialogRef = this.dialog.open(NewlistDialogComponent, {
-      width: '700px',
+      width: '500px',
       data: { name: this.name }
     });
   }
