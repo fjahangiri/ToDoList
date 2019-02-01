@@ -15,6 +15,8 @@ export class CompletedTasksComponent implements OnInit {
     taskservice.deleteTask$.subscribe(item => {
       this.tasks.splice(this.tasks.indexOf(item), 1);
     });
+    taskservice.addtocomplete$.subscribe(item => this.tasks.push(item));
+
   }
 
   ngOnInit() {

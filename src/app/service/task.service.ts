@@ -12,6 +12,8 @@ export class TaskService {
   deleteTask$ = this.deleteTaskSource.asObservable();
   private addtoListSource = new Subject<Task>();
   addtoList$ = this.addtoListSource.asObservable();
+  private addtocompleteSource = new Subject<Task>();
+  addtocomplete$ = this.addtocompleteSource.asObservable();
   constructor(private http: HttpClient) { }
   getAllTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`http://localhost:3000/api/tasks`);
@@ -41,5 +43,8 @@ export class TaskService {
   }
   addtolist(task: Task) {
     this.addtoListSource.next(task);
+  }
+  addtocomp( task: Task ) {
+    this.addtocompleteSource.next(task);
   }
 }

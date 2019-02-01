@@ -37,6 +37,9 @@ export class TaskItemComponent implements OnChanges {
     this.listservice.getMainList().subscribe(list => {
       const t = this.task;
       t.list = list;
+      console.log('ddddddddddddddddd');
+      console.log(t.list.title);
+      console.log(this.task.title);
       this.taskservice.updateTask(t).subscribe(response =>
         this.taskservice.deletefromList(this.task));
     });
@@ -45,6 +48,7 @@ export class TaskItemComponent implements OnChanges {
     this.task.done = true;
     this.taskservice.updateTask(this.task).subscribe(response => {
       this.taskservice.deletefromList(this.task);
+      this.taskservice.addtocomp(this.task);
     });
   }
   edit() {
